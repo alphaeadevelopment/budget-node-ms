@@ -18,7 +18,7 @@
     "uuid": "^3.2.1"
   },
   "devDependencies": {
-    "@alphaeadev/cf-infra-code": "^1.0.3",
+    "@alphaeadev/cf-infra-code": "^1.0.4",
     "@alphaeadev/node-cf-deploy": "^1.0.6",
     "babel-loader": "^7.1.2",
     "cross-env": "^5.1.3",
