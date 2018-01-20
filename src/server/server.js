@@ -7,7 +7,7 @@ config.init('http://config-server-test.alphaea.uk', 'budget-node-ms', process.en
     const port = Number(config.getOr('port', 3001));
     const app = express();
     app.use('/budgets', budgetRouter);
-    app.get('/ping', (req, res) => res.status(200));
+    app.get('/ping', (req, res) => res.status(200).send());
     app.listen(port, () => {
       console.log('Listening on %s', port)
     });
