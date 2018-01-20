@@ -4,7 +4,7 @@ const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 
-const babelExclude = /node_modules[\\/](?!@alphaeadev\/js-services)/;
+const babelExclude = /node_modules/;
 
 var config = {
   entry: path.join(__dirname, 'src/server/server.js'),
@@ -24,7 +24,7 @@ var config = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      'api-stubs': path.join(__dirname, 'api-stubs.js'),
+      '@alphaeadev/dynamo-db-dao': path.join(__dirname, '../dynamo-db-dao/main/index.js')
     }
   },
   plugins: [

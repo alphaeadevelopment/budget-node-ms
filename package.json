@@ -5,9 +5,9 @@
   "main": "index.js",
   "dependencies": {
     "@alphaeadev/config-client": "^1.0.4",
-    "@alphaeadev/dynamo-db-dao": "^1.0.5",
+    "@alphaeadev/dynamo-db-dao": "^1.0.8",
     "@alphaeadev/js-services": "^1.0.5",
-    "aws-sdk": "^2.184.0",
+    "aws-sdk": "^2.185.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.26.0",
@@ -18,7 +18,7 @@
     "uuid": "^3.2.1"
   },
   "devDependencies": {
-    "@alphaeadev/cf-infra-code": "^1.0.1",
+    "@alphaeadev/cf-infra-code": "^1.0.2",
     "@alphaeadev/node-cf-deploy": "^1.0.6",
     "babel-loader": "^7.1.2",
     "webpack": "^3.10.0",
@@ -27,9 +27,10 @@
   "scripts": {
     "serve": "node src/server/main.js",
     "serve:dev": "nodemon src/server/main.js",
+    "debug": "node --inspect-brk src/server/main.js",
     "build": "webpack",
     "deploy": "npm run deploy:cf",
-    "deploy:cf": "ENV=${ENV:test} AWS_SDK_LOAD_CONFIG=1 node-cf-deploy create-stack --name CfBudgetMs-${ENV} -P Env=${ENV} -P SubDomainName=budget-ms-${ENV} -P NodeModule=budget-node-ms-P BootstrapScriptName=node-bootstrap -f node_modules/@alphaeadev/cf-infra-code/cloudformation-templates/node-cf-template.js -S || exit_error"
+    "deploy:cf": "export ENV=${ENV:test}; export AWS_SDK_LOAD_CONFIG=1; node-cf-deploy create-stack --name CfBudgetMs-${ENV} -P Env=${ENV} -P SubDomainName=budget-ms-${ENV} -P NodeModule=budget-node-ms -P BootstrapScriptName=node-bootstrap -f node_modules/\\@alphaeadev/cf-infra-code/cloudformation-templates/node-cf-template.json -S || exit_error"
   },
   "keywords": [],
   "author": "Graham King <gking2224@gmail.com>",
