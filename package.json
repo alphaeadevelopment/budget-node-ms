@@ -30,10 +30,9 @@
     "serve:dev": "nodemon src/server/main.js",
     "debug": "node --inspect-brk src/server/main.js",
     "build": "webpack",
-    "deploy": "cross-env ENV=${ENV:-test} VERSION=`jq .version package.json` AWS_SDK_LOAD_CONFIG=1 npm run deploy:inner",
-    "deploy:inner": "npm run deploy:tag && npm run deploy:cf",
-    "deploy:tag": "git tag v${VERSION} && git push --tags",
-    "deploy:cf": "node-cf-deploy update-stack --name CfBudgetMs-${ENV} -P Env=${ENV} -P EnvVars=\"NODE_ENV=production ENV=${ENV}\" -P GitTag=v${VERSION} -P SubDomainName=budget-ms-${ENV} -P NodeModule=budget-node-ms -P BootstrapScriptName=node-bootstrap -f node_modules/\\@alphaeadev/cf-infra-code/cloudformation-templates/node-cf-template.json -S && npm run deploy:terminate-instances",
+    "deploy": "npm version patch && git push && git push --tags && cross-env ENV=${ENV:-test} VERSION=`jq .version package.json` AWS_SDK_LOAD_CONFIG=1 npm run deploy:inner",
+    "deploy:inner": "npm run deploy:cf && npm run deploy:terminate-instances",
+    "deploy:cf": "echo Updating CloudFormation stack && node-cf-deploy update-stack --name CfBudgetMs-${ENV} -P Env=${ENV} -P EnvVars=\"NODE_ENV=production ENV=${ENV}\" -P GitTag=v${VERSION} -P SubDomainName=budget-ms-${ENV} -P NodeModule=budget-node-ms -P BootstrapScriptName=node-bootstrap -f node_modules/\\@alphaeadev/cf-infra-code/cloudformation-templates/node-cf-template.json -S",
     "deploy:terminate-instances": "node-cf-deploy terminate-stack-instances -n CfBudgetMs-${ENV}"
   },
   "keywords": [],
